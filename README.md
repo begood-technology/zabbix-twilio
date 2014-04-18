@@ -1,5 +1,3 @@
-<img src="https://raw.github.com/chatwork/Phest/master/docs/image/common/logo/logo_phest_white.png"/>
-
 zabbix-twilioとは
 ============
 
