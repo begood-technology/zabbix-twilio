@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html lang="ja" class="ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="ja"><!--<![endif]-->
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="zabbix-twilioはZabbixからTwilio使用して電話通知を行うツールです。"/>
+  <title>使用方法 - zabbix-twilio ドキュメント</title>
+  <!--[if lt IE 9]>
+   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" media="all" type="text/css" href="style/chatwork_api.css">
+  <link rel="stylesheet" media="all" type="text/css" href="style/prism.css">
+ </head>
+ <body>
+  <div id="_wrapper" class="wrapper">
+   <div id="_header" class="header">
+ <h1 id="_logo">zabbix-twilio
+ </h1>
+</div>
+
+   <div id="_contentWrapper" class="contentWrapper clearfix">
+    <div id="_sideContent" class="sideContent">
+ <ul>
+    <li><a href="index.html">zabbix-twilioとは<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="download.html">ダウンロード<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="install.html">インストール<i class="icoFontArrowChevronRight"></i></a></li>
+    <li class="select"><a href="usage.html">使用方法<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="contact.html">問い合わせ先<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="references.html">参考<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="license.html">ライセンス<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="changelogs.html">変更履歴 (4/18)<i class="icoFontArrowChevronRight"></i></a></li>
+ </ul>
+</div>
+    <div id="_mainContent" class="mainContent">
+     <div class="mainContentInner">
+  <h1>使用方法</h1>
+  <div class="contentSection">
+    <p><h2>1.メディアタイプの作成</h2>
+
+<hr />
+
+<p>ZabbixのWeb管理画面にログインし、以下の手順でメディアタイプを作成します。</p>
+
+<p>タブの<code>管理</code>-><code>メディアタイプ</code>の右上にある<code>メディアタイプ</code>の作成ボタンをクリックします。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss01.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss01.png" style="width:100%;height:100%" /></a></p>
+
+<p>タイプを<code>スクリプト</code>を選択し、名前とスクリプト名を入力します。
+スクリプト名にはスクリプトのパスを入力します。<code>AlertScriptsPath</code>からの相対パスになります。</p>
+
+<p>以下、入力例</p>
+
+<pre><code>名前：Twilio
+スクリプト名：zabbix-twilio/twilio-call.php
+</code></pre>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss02.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss02.png" style="width:100%;height:100%" /></a></p>
+
+<h2>2.連絡先の追加</h2>
+
+<hr />
+
+<p>1.で作成したメディアタイプを以下の手順でユーザーに追加します。</p>
+
+<p>タブの<code>管理</code>-><code>ユーザー</code>で追加したユーザー名をクリックします。タブの<code>メディア</code>ページ内にある<code>追加</code>をクリック。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss03.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss03.png" style="width:100%;height:100%" /></a></p>
+
+<p>タイプの所で先ほど作成したタイプを選択し、送信先に電話番号を入力します。追加をクリックし、保存ボタンを押します。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss04.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss04.png" style="width:100%;height:100%" /></a></p>
+
+<h2>3.アクションの設定</h2>
+
+<hr />
+
+<p>電話通知を行う為のアクションを以下の手順にて作成します。</p>
+
+<p>タブの<code>設定</code>-><code>アクション</code>の右上にある<code>アクションの作成</code>をクリックします。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss05.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss05.png" style="width:100%;height:100%" /></a></p>
+
+<p>タブの<code>アクション</code>にある<code>デフォルトのメッセージ</code>に<code>eventid:{EVENT.ID}</code>を<strong>必ず入れてください</strong>。
+<code>eventid:{EVENT.ID}</code>は障害対応イベントのコメントへ登録するときに使用します。(注意:<code>eventid:</code>と{EVENT.ID}の間にスペースを入れないで下さい)<BR>
+また、任意で<code>message:&lt;任意の文字列&gt;</code>を入れて、<code>config.php</code>内の<code>$MESSAGE_NOTICE</code>に<code>$$MESSAGE$$</code>マクロを入れることで<code>message:</code>で指定した文字列を読み上げることができます。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss06.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss06.png" style="width:100%;height:100%" /></a></p>
+
+<p>タブの<code>アクションの実行内容</code>で新規をクリックし、メール通知などと同じように通知設定を行って保存をクリック。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss07.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss07.png" style="width:100%;height:100%" /></a></p>
+
+<p>以上で設定は完了となります。障害が発生すると電話通知がされるようになります。
+　　
+　　
+電話通知が来ると設定したメッセージが読み上げあられ、確認キーが一致すると下記のようにZabbixの障害対応コメントへ登録されます。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss08.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss08.png" style="width:100%;height:100%" /></a></p>
+
+<p>以下がコメントの内容。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss09.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss09.png" style="width:100%;height:100%" /></a></p>
+
+<h2>4.(参考)エスカレーション設定</h2>
+
+<hr />
+
+<p>電話に出れない場合や電話に出ても対応できない場合などに次の人へエスカレーションする場合は下記Zabbixの設定で実現できます。</p>
+
+<p>下記は対応可能者(障害対応コメントがコメントありになるまで)がでるまで3人に対して順番に掛けていき、最大3順する設定方法の例になります。</p>
+
+<p>アクション設定で<code>アクションの実行内容</code>ページで<code>新規</code>をクリック</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss10.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss10.png" style="width:100%;height:100%" /></a></p>
+
+<p><code>デフォルトのアクション実行ステップの間隔</code>で電話を掛ける間隔を設定します。コール時間以上に設定し下さい。<BR>
+<code>ステップ</code>の<code>開始</code>と<code>終了</code>にステップ数をを入れて下さい。
+<code>次のメディアのみ使用</code>で<code>Twilio</code>を選択。<BR>
+<code>アクションの実行条件</code>に<code>障害対応済み=コメントなし</code>の条件を追加して下さい。追加をクリックし、保存して下さい。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss11.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss11.png" style="width:100%;height:100%" /></a></p>
+
+<p>同じ方法で3人目や2順目以降を登録すれば対応可能な人がでるまでエスカレーションを行います。</p>
+
+<p><a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss12.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss12.png" style="width:100%;height:100%" /></a></p>
+</p>
+ </div>
+ 
+</div>
+     <div id="_footer" class="footer clearfix">
+ <small>(c) 2014 <a href="http://www.begood-tech.com/" target="_blank">BeGoodTechnology Inc.</a></small>
+</div>
+
+    </div>
+   </div>
+  </div>
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <![endif]-->
+  <!--[if gte IE 9]><!-->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <!--<![endif]-->
+  <script type="text/javascript" src="javascript/modernizr.custom.js"></script>
+  <script type="text/javascript" src="javascript/prism.js"></script>
+  <script type="text/javascript" src="javascript/apidoc.js"></script>
+ </body>
+</html>

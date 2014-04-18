@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html lang="ja" class="ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="ja"><!--<![endif]-->
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="zabbix-twilioはZabbixからTwilio使用して電話通知を行うツールです。"/>
+  <title>インストール - zabbix-twilio ドキュメント</title>
+  <!--[if lt IE 9]>
+   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" media="all" type="text/css" href="style/chatwork_api.css">
+  <link rel="stylesheet" media="all" type="text/css" href="style/prism.css">
+ </head>
+ <body>
+  <div id="_wrapper" class="wrapper">
+   <div id="_header" class="header">
+ <h1 id="_logo">zabbix-twilio
+ </h1>
+</div>
+
+   <div id="_contentWrapper" class="contentWrapper clearfix">
+    <div id="_sideContent" class="sideContent">
+ <ul>
+    <li><a href="index.html">zabbix-twilioとは<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="download.html">ダウンロード<i class="icoFontArrowChevronRight"></i></a></li>
+    <li class="select"><a href="install.html">インストール<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="usage.html">使用方法<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="contact.html">問い合わせ先<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="references.html">参考<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="license.html">ライセンス<i class="icoFontArrowChevronRight"></i></a></li>
+    <li><a href="changelogs.html">変更履歴 (4/18)<i class="icoFontArrowChevronRight"></i></a></li>
+ </ul>
+</div>
+    <div id="_mainContent" class="mainContent">
+     <div class="mainContentInner">
+  <h1>インストール</h1>
+  <div class="contentSection">
+    <p><h2>1.スクリプトのインストール</h2>
+
+<hr />
+
+<p>Zabbixのアラートスクリプトディレクトリ内へzabbix-twilioディレクトリを設置します。</p>
+
+<p>例：Zabbixのアラートスクリプトディレクトリが(/usr/lib/zabbix/alertscripts/)だった場合</p>
+
+<pre><code>/usr/lib/zabbix/alertscripts/zabbix-twilio
+</code></pre>
+
+<p>twilio-call.phpへ実行権限を付加します。また、logsディレクトリのパーミッションを変更。</p>
+
+<pre><code>chmod +x /usr/lib/zabbix/alertscripts/zabbix-twilio/twilio-call.php
+chmod 777 /usr/lib/zabbix/alertscripts/zabbix-twilio/logs
+</code></pre>
+
+<p>設置したzabbix-twilioディレクトリ内にある<code>zabbix-twilio.php</code>スクリプトをPHPが動作するWEBサーバーのドキュメントルート(/var/www/htmlなど)へ移動させます。</p>
+
+<p>例：WEBサーバーのドキュメントルートが/var/www/html/で/var/www/htmlへ設置する場合</p>
+
+<pre><code>mkdir /var/www/html/zabbi-twilio
+mv /usr/lib/zabbix/alertscripts/zabbix-twilio/zabbix-twilio.php /var/www/html/zabbix-twilio/
+</code></pre>
+
+<p>　
+　</p>
+
+<h2>2.twilio-phpライブラリのインストール</h2>
+
+<hr />
+
+<p>Twilioの<a href="http://www.twilio.com/docs/libraries">こちら</a>のページ内にあるtwilio-phpライブラリをダウンロードし、設置します。</p>
+
+<pre><code># wget https://github.com/twilio/twilio-php/archive/latest.zip
+# unzip latest.zip
+# mv twilio-php-latest/ /usr/lib/zabbix/zabbix-twilio/lib/
+</code></pre>
+
+<p>　
+　</p>
+
+<h2>3.スクリプトと設定ファイルの修正</h2>
+
+<hr />
+
+<p>下記ファイル(zabbix-twilio.phpとconfig.php)の設定値を適応修正する必要があります。</p>
+
+<p>ファイル名:<strong>zabbix-twilio.php</strong></p>
+
+<pre><code>// configファイル
+require_once '&lt;config.phpのフルパス&gt;';
+</code></pre>
+
+<p>　
+　</p>
+
+<p>ファイル名:<strong>config.php</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>変数名</th>
+  <th>設定内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>$SCRIPT_DIR</td>
+  <td>zabbix-twilioディレクトリのパス</td>
+</tr>
+<tr>
+  <td>$SCRIPT_URL</td>
+  <td>zabbix-twilio.phpのURL(Twilioサーバーからアクセスできる必要があります)</td>
+</tr>
+<tr>
+  <td>$ACCOUNT_SID</td>
+  <td>TwilioのACCOUNT SID</td>
+</tr>
+<tr>
+  <td>$AUTH_TOKEN</td>
+  <td>TwilioのAUTH TOKEN</td>
+</tr>
+<tr>
+  <td>$TWILIO_NUMBER</td>
+  <td>Twilioで使用する電話番号(発信番号)</td>
+</tr>
+<tr>
+  <td>$CALL_TIME</td>
+  <td>電話呼出時間(秒)</td>
+</tr>
+<tr>
+  <td>$MESSAGE_NOTICE</td>
+  <td>通知時に読み上げるメッセージ(マクロ $$MESSAGE$$<sup id="fnref:1"><a href="#fn:1" class="footnote-ref">1</a></sup> と$$DIGITS$$<sup id="fnref:2"><a href="#fn:2" class="footnote-ref">2</a></sup>が使用できます)</td>
+</tr>
+<tr>
+  <td>$MESSAGE_RETYPE</td>
+  <td>確認キーが一致しない時読み上げるメッセージ(マクロ $$DIGITS$$<sup id="fnref2:2"><a href="#fn:2" class="footnote-ref">2</a></sup>が使用できます)</td>
+</tr>
+<tr>
+  <td>$MESSAGE_REG_OK</td>
+  <td>Zabbixへの登録がOKの場合に読み上げるメッセージ</td>
+</tr>
+<tr>
+  <td>$MESSAGE_REG_NG</td>
+  <td>Zabbixへの登録がNGの場合に読み上げるメッセージ</td>
+</tr>
+<tr>
+  <td>$DIGITS</td>
+  <td>確認キー(1-9の数値で指定し、一致するとZabbixへ登録する。桁数はREGKEYで指定可能。)</td>
+</tr>
+<tr>
+  <td>$DIGITS_NUM</td>
+  <td>確認キーの桁数</td>
+</tr>
+<tr>
+  <td>$DIGITS_TIMEOUT</td>
+  <td>確認キーの入力待ち時間</td>
+</tr>
+<tr>
+  <td>$ZABBIX_API</td>
+  <td>登録を行うZabbixサーバーのAPI URL</td>
+</tr>
+<tr>
+  <td>$ZABBIX_USER</td>
+  <td>イベント登録時に使用するZabbixユーザーの名前</td>
+</tr>
+<tr>
+  <td>$ZABBIX_PASS</td>
+  <td>Zabbixユーザーのパスワード</td>
+</tr>
+</tbody>
+</table>
+
+<div class="footnotes">
+<hr />
+<ol>
+
+<li id="fn:1">
+<p>Zabbixのアクションで設定するメッセージに<code>message:&lt;任意の文字列&gt;</code>を指定したものと置き換えます。&#160;<a href="#fnref:1" rev="footnote" class="footnote-backref">&#8617;</a></p>
+</li>
+
+<li id="fn:2">
+<p><code>config.php</code>内の<code>$DIGITS</code>確認キーの値と置き換えます。&#160;<a href="#fnref:2" rev="footnote" class="footnote-backref">&#8617;</a> <a href="#fnref2:2" rev="footnote" class="footnote-backref">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+</p>
+ </div>
+ 
+</div>
+     <div id="_footer" class="footer clearfix">
+ <small>(c) 2014 <a href="http://www.begood-tech.com/" target="_blank">BeGoodTechnology Inc.</a></small>
+</div>
+
+    </div>
+   </div>
+  </div>
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <![endif]-->
+  <!--[if gte IE 9]><!-->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <!--<![endif]-->
+  <script type="text/javascript" src="javascript/modernizr.custom.js"></script>
+  <script type="text/javascript" src="javascript/prism.js"></script>
+  <script type="text/javascript" src="javascript/apidoc.js"></script>
+ </body>
+</html>
