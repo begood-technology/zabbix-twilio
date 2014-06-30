@@ -13,7 +13,7 @@ require_once $SCRIPT_DIR . '/Logger.php';
 // **********************************************
 // *** メイン ***
 // **********************************************
-$log = new Logger ( $LOG_DIR . '/' . basename($argv[0], '.php') . '.log', $DEBUG_FLG );
+$log = new Logger ( $LOG_DIR . '/' . basename($_SERVER['SCRIPT_FILENAME'], '.php') . '.log', $DEBUG_FLG );
 $log->info ( 'Start' );
 
 $log->debug ( $_REQUEST );
@@ -116,7 +116,7 @@ Switch ($_REQUEST ['cmd']) {
 		$message = str_replace ( '$$DIGITS$$', $DIGITS, $message );
 
 		$log->debug ( "MESSAGE:$message" );
-		$log->debug ( "DIGITS_TIMEOUT:$DIGITS_TIMEOUT DIGITS_NUM:$DIGITS_NUM URL:$URL" );
+		$log->debug ( "DIGITS_TIMEOUT:$DIGITS_TIMEOUT DIGITS_NUM:$DIGITS_NUM URL:$SCRIPT_URL" );
 
 		$response = new Services_Twilio_Twiml ();
 		$gather = $response->gather ( array (
