@@ -10,32 +10,11 @@
   <link>http://chatwork.github.io/Phest/changelogs.html</link>
   <copyright>BeGoodTechnology Inc</copyright>
   <description>zabbix-twilioはZabbixからTwilio使用して電話通知を行うツールです。</description>
-  <pubDate>Tue, 01 Jul 2014 11:19:42 +0900</pubDate>
+  <pubDate>Tue, 01 Jul 2014 11:24:04 +0900</pubDate>
   <generator>Phest v0.9.6</generator>
     <item>
-      <pubDate>
-Warning: strlen() expects parameter 1 to be string, array given in /var/www/html/phest/phest/lib/vendor/smarty/plugins/shared.make_timestamp.php on line 24
-
-Call Stack:
-    0.0017    1007440   1. {main}() /var/www/html/phest/phest/index.php:0
-    0.0946    6897880   2. Smarty_Internal_TemplateBase->fetch() /var/www/html/phest/phest/index.php:513
-    0.0953    6994120   3. content_535112c2333ca2_49303813() /var/www/html/phest/phest/lib/vendor/smarty/sysplugins/smarty_internal_templatebase.php:180
-    0.0955    6998376   4. smarty_modifier_date_format() /var/www/html/phest/phest/cache/templates_c/zabbix-twilio/f5a4770954208633457de519ed1a9e5aac863d12.file.changelogs.tpl.xml.php:62
-    0.0955    6998536   5. smarty_make_timestamp() /var/www/html/phest/phest/lib/vendor/smarty/plugins/modifier.date_format.php:39
-    0.0955    6998584   6. strlen() /var/www/html/phest/phest/lib/vendor/smarty/plugins/shared.make_timestamp.php:24
-
-
-Warning: strtotime() expects parameter 1 to be string, array given in /var/www/html/phest/phest/lib/vendor/smarty/plugins/shared.make_timestamp.php on line 33
-
-Call Stack:
-    0.0017    1007440   1. {main}() /var/www/html/phest/phest/index.php:0
-    0.0946    6897880   2. Smarty_Internal_TemplateBase->fetch() /var/www/html/phest/phest/index.php:513
-    0.0953    6994120   3. content_535112c2333ca2_49303813() /var/www/html/phest/phest/lib/vendor/smarty/sysplugins/smarty_internal_templatebase.php:180
-    0.0955    6998376   4. smarty_modifier_date_format() /var/www/html/phest/phest/cache/templates_c/zabbix-twilio/f5a4770954208633457de519ed1a9e5aac863d12.file.changelogs.tpl.xml.php:62
-    0.0955    6998536   5. smarty_make_timestamp() /var/www/html/phest/phest/lib/vendor/smarty/plugins/modifier.date_format.php:39
-    0.0957    6998584   6. strtotime() /var/www/html/phest/phest/lib/vendor/smarty/plugins/shared.make_timestamp.php:33
-
-Tue, 01 Jul 2014 11:19:43 +0900</pubDate>     </item>
+   <title> 1.1 zabbix-twilio.phpのログ出力不具合修正 
+</title>   <pubDate>Tue, 01 Jul 2014 00:00:00 +0900</pubDate>     </item>
     <item>
    <title> 1.0 リリース 
 </title>   <pubDate>Fri, 18 Apr 2014 00:00:00 +0900</pubDate>     </item>
