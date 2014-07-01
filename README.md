@@ -196,7 +196,7 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
 ============
 
 
-zabbix-prj@begood-tech.com
+abbix-prj@begood-tech.com
 
 参考
 ============
@@ -209,5 +209,5 @@ zabbix-prj@begood-tech.com
 LICENSE
 ============
 
-Licensed under MIT,  see [LICENSE](https://github.com/chatwork/Phest/blob/master/LICENSE)
+Licensed under MIT,  see [LICENSE](https://github.com/begood-technology/zabbix-twilio/blob/master/LICENSE)
 
