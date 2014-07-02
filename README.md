@@ -1,7 +1,9 @@
-zabbix-twilioとは
+電話通知プラグイン zabbix-twilio
 ============
 
-zabbixから[Twilio](http://twilio.kddi-web.com/)を使用して電話による自動通知を行い、 イベントの 障害対応コメントへ記録を残すことができます。
+Zabbixのメディアタイプ(通知配信)に電話による通知を追加する為のプラグインです。また、電話通知を受け付けたかの確認履歴をZabbixへ登録できます。電話を掛ける仕組みはクラウド電話APIサービス「[Twilio](http://twilio.kddi-web.com/)」を使用しています。
+
+※別途TwilioのアカウントとインターネットからアクセスできるWEBサーバーが必要となります。
 
 |ファイル名       |役割                                                                                     |
 |-----------------|-----------------------------------------------------------------------------------------|
@@ -23,7 +25,7 @@ zabbix-twilioを使用するには以下のソフトウェアが必要です。
 ダウンロード
 ============
 
-[こちら](https://github.com/begood-technology/zabbix-twilio/releases)からダウンロードできます。
+こちらから[zabbix-twilio](https://github.com/begood-technology/zabbix-twilio/releases)をダウンロードできます。
 
 インストール
 ============
@@ -112,7 +114,7 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
 
 タブの`管理`->`メディアタイプ`の右上にある`メディアタイプ`の作成ボタンをクリックします。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss01.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss01.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss01.png" target="_blank"><img src="./image/ss01/ss01.png" style="width:100%;height:100%" /></a>
 
 タイプを`スクリプト`を選択し、名前とスクリプト名を入力します。
 スクリプト名にはスクリプトのパスを入力します。`AlertScriptsPath`からの相対パスになります。
@@ -122,7 +124,7 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
     名前：Twilio
     スクリプト名：zabbix-twilio/twilio-call.php
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss02.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss02.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss02.png" target="_blank"><img src="./image/ss01/ss02.png" style="width:100%;height:100%" /></a>
 
 ## 2.連絡先の追加
 
@@ -132,11 +134,11 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
 
 タブの`管理`->`ユーザー`で追加したユーザー名をクリックします。タブの`メディア`ページ内にある`追加`をクリック。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss03.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss03.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss03.png" target="_blank"><img src="./image/ss01/ss03.png" style="width:100%;height:100%" /></a>
 
 タイプの所で先ほど作成したタイプを選択し、送信先に電話番号を入力します。追加をクリックし、保存ボタンを押します。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss04.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss04.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss04.png" target="_blank"><img src="./image/ss01/ss04.png" style="width:100%;height:100%" /></a>
 
 ## 3.アクションの設定
 
@@ -146,28 +148,28 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
 
 タブの`設定`->`アクション`の右上にある`アクションの作成`をクリックします。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss05.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss05.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss05.png" target="_blank"><img src="./image/ss01/ss05.png" style="width:100%;height:100%" /></a>
 
 タブの`アクション`にある`デフォルトのメッセージ`に`eventid:{EVENT.ID}`を**必ず入れてください**。
 `eventid:{EVENT.ID}`は障害対応イベントのコメントへ登録するときに使用します。(注意:`eventid:`と{EVENT.ID}の間にスペースを入れないで下さい)<BR>
 また、任意で`message:<任意の文字列>`を入れて、`config.php`内の`$MESSAGE_NOTICE`に`$$MESSAGE$$`マクロを入れることで`message:`で指定した文字列を読み上げることができます。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss06.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss06.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss06.png" target="_blank"><img src="./image/ss01/ss06.png" style="width:100%;height:100%" /></a>
 
 タブの`アクションの実行内容`で新規をクリックし、メール通知などと同じように通知設定を行って保存をクリック。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss07.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss07.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss07.png" target="_blank"><img src="./image/ss01/ss07.png" style="width:100%;height:100%" /></a>
 
 以上で設定は完了となります。障害が発生すると電話通知がされるようになります。
 　　
 　　
 電話通知が来ると設定したメッセージが読み上げあられ、確認キーが一致すると下記のようにZabbixの障害対応コメントへ登録されます。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss08.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss08.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss08.png" target="_blank"><img src="./image/ss01/ss08.png" style="width:100%;height:100%" /></a>
 
 以下がコメントの内容。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss09.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss09.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss09.png" target="_blank"><img src="./image/ss01/ss09.png" style="width:100%;height:100%" /></a>
 
 ## 4.(参考)エスカレーション設定
 
@@ -179,18 +181,18 @@ ZabbixのWeb管理画面にログインし、以下の手順でメディアタ�
 
 アクション設定で`アクションの実行内容`ページで`新規`をクリック
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss10.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss10.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss10.png" target="_blank"><img src="./image/ss01/ss10.png" style="width:100%;height:100%" /></a>
 
 `デフォルトのアクション実行ステップの間隔`で電話を掛ける間隔を設定します。コール時間以上に設定し下さい。<BR>
 `ステップ`の`開始`と`終了`にステップ数をを入れて下さい。
 `次のメディアのみ使用`で`Twilio`を選択。<BR>
 `アクションの実行条件`に`障害対応済み=コメントなし`の条件を追加して下さい。追加をクリックし、保存して下さい。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss11.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss11.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss11.png" target="_blank"><img src="./image/ss01/ss11.png" style="width:100%;height:100%" /></a>
 
 同じ方法で3人目や2順目以降を登録すれば対応可能な人がでるまでエスカレーションを行います。
 
-<a href="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss12.png" target="_blank"><img src="http://54.199.40.83/phest/sites/zabbix-twilio/output/local/image/ss01/ss12.png" style="width:100%;height:100%" /></a>
+<a href="./image/ss01/ss12.png" target="_blank"><img src="./image/ss01/ss12.png" style="width:100%;height:100%" /></a>
 
 問い合わせ先
 ============

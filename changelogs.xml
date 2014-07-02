@@ -6,11 +6,11 @@
   xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
   <docs>http://blogs.law.harvard.edu/tech/rss</docs>
-  <title>zabbix-twilio ドキュメント - 変更履歴</title>
+  <title>Zabbix 電話通知プラグイン 「zabbix-twilio」 ドキュメント - 変更履歴</title>
   <link>http://chatwork.github.io/Phest/changelogs.html</link>
   <copyright>BeGoodTechnology Inc</copyright>
-  <description>zabbix-twilioはZabbixからTwilio使用して電話通知を行うツールです。</description>
-  <pubDate>Tue, 01 Jul 2014 11:24:04 +0900</pubDate>
+  <description>zabbix-twilioは Zabbixから電話通知を行うことができるプラグインです。</description>
+  <pubDate>Thu, 03 Jul 2014 00:29:03 +0900</pubDate>
   <generator>Phest v0.9.6</generator>
     <item>
    <title> 1.1 zabbix-twilio.phpのログ出力不具合修正 
